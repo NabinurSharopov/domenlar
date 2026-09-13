@@ -1,0 +1,369 @@
+<!doctype html>
+<html lang="uz">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Domen Auksioni</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Manrope:wght@400;500;600;700&display=swap">
+<style>
+  :root{
+    --bg-1:#faf6ec;
+    --bg-2:#f1e9d6;
+    --gold:#b8842a;
+    --gold-soft:#8f661f;
+    --emerald:#1a8f6b;
+    --ink:#241d10;
+    --ink-dim:#786c53;
+    --line:rgba(184,132,42,0.28);
+    --card:#fffdf7;
+  }
+  :root[data-theme="dark"]{
+    --bg-1:#050810;
+    --bg-2:#0b1120;
+    --gold:#f2c14e;
+    --gold-soft:#c99a3e;
+    --emerald:#20b087;
+    --ink:#f5f3ea;
+    --ink-dim:#9aa3b5;
+    --line:rgba(242,193,78,0.22);
+    --card:#0d1424;
+  }
+
+  *{box-sizing:border-box;}
+  html,body{height:100%;}
+  body{
+    margin:0;
+    min-height:100vh;
+    position:relative;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:48px 20px;
+    background-color:var(--bg-1);
+    background-image:
+      radial-gradient(55% 65% at 18% 8%, color-mix(in srgb, var(--gold) 30%, transparent), transparent 60%),
+      radial-gradient(50% 60% at 88% 92%, color-mix(in srgb, var(--emerald) 28%, transparent), transparent 60%),
+      linear-gradient(160deg, var(--bg-2), var(--bg-1) 70%);
+    background-size:200% 200%, 200% 200%, 100% 100%;
+    animation:drift 16s ease-in-out infinite alternate;
+    color:var(--ink);
+    font-family:'Manrope', system-ui, sans-serif;
+    overflow-x:hidden;
+  }
+  body::before{
+    content:"";
+    position:fixed;
+    inset:0;
+    background-image:
+      linear-gradient(color-mix(in srgb, var(--gold) 8%, transparent) 1px, transparent 1px),
+      linear-gradient(90deg, color-mix(in srgb, var(--gold) 8%, transparent) 1px, transparent 1px);
+    background-size:56px 56px;
+    -webkit-mask-image:radial-gradient(80% 70% at 50% 40%, black, transparent 85%);
+    mask-image:radial-gradient(80% 70% at 50% 40%, black, transparent 85%);
+    pointer-events:none;
+    z-index:0;
+  }
+  body::after{
+    content:"";
+    position:fixed;
+    inset:0;
+    opacity:0.05;
+    pointer-events:none;
+    z-index:0;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+  .stage{ position:relative; z-index:1; }
+  @keyframes drift{
+    0%{ background-position:0% 0%, 100% 100%, 0 0; }
+    100%{ background-position:12% 8%, 88% 92%, 0 0; }
+  }
+  @media (prefers-reduced-motion: reduce){
+    body{ animation:none; }
+  }
+
+  .stage{
+    position:relative;
+    width:100%;
+    max-width:600px;
+  }
+
+  .badge-row{
+    display:flex;
+    justify-content:center;
+    margin-bottom:28px;
+    opacity:0;
+    animation:rise 0.7s 0.05s cubic-bezier(.2,.8,.2,1) forwards;
+  }
+  .badge{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    padding:8px 18px;
+    border-radius:999px;
+    background:color-mix(in srgb, var(--gold) 14%, transparent);
+    border:1px solid var(--line);
+    font-size:0.72rem;
+    letter-spacing:0.18em;
+    text-transform:uppercase;
+    font-weight:700;
+    color:var(--gold);
+  }
+  .badge-dot{
+    width:6px;height:6px;border-radius:50%;
+    background:var(--emerald);
+    box-shadow:0 0 0 0 rgba(32,176,135,0.6);
+    animation:pulse 2s infinite;
+  }
+  @media (prefers-reduced-motion: reduce){ .badge-dot{ animation:none; } }
+  @keyframes pulse{
+    0%{ box-shadow:0 0 0 0 rgba(32,176,135,0.55); }
+    70%{ box-shadow:0 0 0 8px rgba(32,176,135,0); }
+    100%{ box-shadow:0 0 0 0 rgba(32,176,135,0); }
+  }
+
+  .domain-wrap{
+    text-align:center;
+    margin-bottom:6px;
+    opacity:0;
+    animation:rise 0.8s 0.15s cubic-bezier(.2,.8,.2,1) forwards;
+  }
+  .domain{
+    font-family:'Bricolage Grotesque', system-ui, sans-serif;
+    font-weight:800;
+    font-size:clamp(2.4rem, 9vw, 4.2rem);
+    line-height:1.02;
+    letter-spacing:-0.02em;
+    text-wrap:balance;
+    margin:0;
+    background:linear-gradient(100deg, var(--ink) 30%, var(--gold) 55%, var(--emerald) 80%);
+    background-size:220% auto;
+    -webkit-background-clip:text;
+    background-clip:text;
+    color:transparent;
+    animation:shine 6s linear infinite;
+  }
+  @media (prefers-reduced-motion: reduce){ .domain{ animation:none; } }
+  @keyframes shine{
+    to{ background-position:-220% center; }
+  }
+  .tld{
+    font-size:0.85rem;
+    color:var(--ink-dim);
+    margin:14px 0 36px;
+    letter-spacing:0.04em;
+  }
+
+  .lede{
+    text-align:center;
+    color:var(--ink-dim);
+    font-size:0.98rem;
+    line-height:1.65;
+    max-width:36ch;
+    margin:0 auto 32px;
+    opacity:0;
+    animation:rise 0.8s 0.25s cubic-bezier(.2,.8,.2,1) forwards;
+  }
+  .lede strong{ color:var(--ink); font-weight:700; }
+
+  .contact{
+    display:grid;
+    grid-template-columns:repeat(3, 1fr);
+    gap:14px;
+    opacity:0;
+    animation:rise 0.8s 0.35s cubic-bezier(.2,.8,.2,1) forwards;
+  }
+  @media (max-width:560px){
+    .contact{ grid-template-columns:1fr; }
+  }
+  .contact-card{
+    position:relative;
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+    padding:20px 20px 18px;
+    border-radius:16px;
+    background:linear-gradient(160deg, var(--card), color-mix(in srgb, var(--card) 70%, black));
+    border:1px solid rgba(255,255,255,0.08);
+    overflow:hidden;
+    transition:transform 0.25s ease, border-color 0.25s ease;
+  }
+  .contact-card::before{
+    content:"";
+    position:absolute;
+    inset:0;
+    background:radial-gradient(60% 80% at 20% 0%, color-mix(in srgb, var(--gold) 18%, transparent), transparent 70%);
+    opacity:0;
+    transition:opacity 0.25s ease;
+    pointer-events:none;
+  }
+  .contact-card:hover, .contact-card:focus-within{
+    transform:translateY(-3px);
+    border-color:var(--line);
+  }
+  .contact-card:hover::before, .contact-card:focus-within::before{ opacity:1; }
+  .contact-card a.main-link{
+    position:absolute;
+    inset:0;
+    z-index:1;
+    text-decoration:none;
+  }
+  .contact-card a.main-link:focus-visible{ outline:2px solid var(--gold); outline-offset:-2px; border-radius:16px; }
+  .glyph{
+    width:36px;height:36px;
+    border-radius:10px;
+    display:flex;align-items:center;justify-content:center;
+    background:color-mix(in srgb, var(--gold) 16%, transparent);
+    color:var(--gold);
+    position:relative;
+    z-index:0;
+  }
+  .glyph svg{ width:17px;height:17px;fill:none;stroke:currentColor;stroke-width:1.8; }
+  .contact-label{
+    font-size:0.66rem;
+    text-transform:uppercase;
+    letter-spacing:0.1em;
+    color:var(--ink-dim);
+    font-weight:700;
+    position:relative;
+    z-index:0;
+  }
+  .contact-value{
+    font-size:0.95rem;
+    font-weight:700;
+    font-variant-numeric:tabular-nums;
+    word-break:break-word;
+    color:var(--ink);
+    position:relative;
+    z-index:0;
+  }
+  .copy-btn{
+    position:absolute;
+    top:14px;
+    right:14px;
+    z-index:2;
+    width:26px;height:26px;
+    border-radius:8px;
+    border:1px solid var(--line);
+    background:color-mix(in srgb, var(--card) 60%, transparent);
+    color:var(--ink-dim);
+    display:flex;align-items:center;justify-content:center;
+    cursor:pointer;
+    transition:color 0.2s ease, border-color 0.2s ease, background 0.2s ease;
+  }
+  .copy-btn:hover, .copy-btn:focus-visible{
+    color:var(--gold);
+    border-color:var(--gold);
+  }
+  .copy-btn svg{ width:13px;height:13px;fill:none;stroke:currentColor;stroke-width:1.9; }
+  .copy-btn.copied{ color:var(--emerald); border-color:var(--emerald); }
+
+  .domain-desc{
+    text-align:center;
+    color:var(--ink-dim);
+    font-size:0.86rem;
+    font-style:italic;
+    max-width:34ch;
+    margin:0 auto 22px;
+    opacity:0;
+    animation:rise 0.8s 0.2s cubic-bezier(.2,.8,.2,1) forwards;
+  }
+
+  .footer-note{
+    text-align:center;
+    margin-top:34px;
+    font-size:0.72rem;
+    letter-spacing:0.06em;
+    color:var(--ink-dim);
+    text-transform:uppercase;
+    opacity:0;
+    animation:rise 0.8s 0.45s cubic-bezier(.2,.8,.2,1) forwards;
+  }
+
+  @keyframes rise{
+    from{ opacity:0; transform:translateY(14px); }
+    to{ opacity:1; transform:translateY(0); }
+  }
+  @media (prefers-reduced-motion: reduce){
+    .badge-row,.domain-wrap,.lede,.contact,.footer-note{
+      animation:none !important;
+      opacity:1 !important;
+      transform:none !important;
+    }
+  }
+</style>
+</head>
+<body>
+  <div class="stage">
+    <div class="badge-row">
+      <span class="badge"><span class="badge-dot"></span> Sotuvda</span>
+    </div>
+
+    <div class="domain-wrap">
+      <h1 class="domain" id="domainName">yourdomain.uz</h1>
+      <p class="tld">.uz milliy domen zonasi</p>
+    </div>
+
+    <p class="domain-desc">Qisqa, oson eslab qolinadigan va SEO uchun qulay nom — startap, marketpleys yoki mobil ilova uchun mos keladi.</p>
+
+    <p class="lede">Bu nom hali <strong>hech kimga tegishli emas</strong> — birinchi bo'lib murojaat qiling va o'z biznesingiz uchun band qiling.</p>
+
+    <div class="contact">
+      <div class="contact-card">
+        <a class="main-link" href="mailto:test@example.com" aria-label="Email yuborish"></a>
+        <span class="glyph"><svg viewBox="0 0 24 24"><path d="M4 5h16v14H4z"/><path d="M4 6l8 7 8-7"/></svg></span>
+        <span class="contact-label">Elektron pochta</span>
+        <span class="contact-value">test@example.com</span>
+        <button type="button" class="copy-btn" data-copy="test@example.com" aria-label="Emailni nusxalash" title="Nusxalash">
+          <svg viewBox="0 0 24 24"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg>
+        </button>
+      </div>
+      <div class="contact-card">
+        <a class="main-link" href="tel:+998901234567" aria-label="Qo'ng'iroq qilish"></a>
+        <span class="glyph"><svg viewBox="0 0 24 24"><path d="M6 3h3l2 5-2.5 1.5a11 11 0 0 0 5 5L15 12l5 2v3a2 2 0 0 1-2 2C10.5 19 4 12.5 4 5a2 2 0 0 1 2-2z"/></svg></span>
+        <span class="contact-label">Telefon</span>
+        <span class="contact-value">+998 90 123 45 67</span>
+        <button type="button" class="copy-btn" data-copy="+998901234567" aria-label="Telefonni nusxalash" title="Nusxalash">
+          <svg viewBox="0 0 24 24"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg>
+        </button>
+      </div>
+      <div class="contact-card">
+        <a class="main-link" href="https://t.me/yourusername" target="_blank" rel="noopener" aria-label="Telegram orqali yozish"></a>
+        <span class="glyph"><svg viewBox="0 0 24 24"><path d="M22 3 2 11l6 2m14-10-4 17-8-6m12-11L8 13"/></svg></span>
+        <span class="contact-label">Telegram</span>
+        <span class="contact-value">@yourusername</span>
+        <button type="button" class="copy-btn" data-copy="@yourusername" aria-label="Telegramni nusxalash" title="Nusxalash">
+          <svg viewBox="0 0 24 24"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg>
+        </button>
+      </div>
+    </div>
+
+    <p class="footer-note">Rasmiy egalik topshirish · narx kelishuv asosida</p>
+  </div>
+
+  <script>
+    document.getElementById('domainName').textContent = window.location.hostname || 'yourdomain.uz';
+
+    document.querySelectorAll('.copy-btn').forEach(btn => {
+      btn.addEventListener('click', async () => {
+        const value = btn.getAttribute('data-copy');
+        try {
+          await navigator.clipboard.writeText(value);
+        } catch (e) {
+          const ta = document.createElement('textarea');
+          ta.value = value;
+          document.body.appendChild(ta);
+          ta.select();
+          document.execCommand('copy');
+          document.body.removeChild(ta);
+        }
+        btn.classList.add('copied');
+        btn.innerHTML = '<svg viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg>';
+        setTimeout(() => {
+          btn.classList.remove('copied');
+          btn.innerHTML = '<svg viewBox="0 0 24 24"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg>';
+        }, 1500);
+      });
+    });
+  </script>
+</body>
+</html>
