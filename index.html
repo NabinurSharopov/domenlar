@@ -341,7 +341,11 @@
   </div>
 
   <script>
-    document.getElementById('domainName').textContent = window.location.hostname || 'yourdomain.uz';
+    (function(){
+      const host = window.location.hostname || '';
+      const isTemp = host.endsWith('.vercel.app') || host === 'localhost' || host === '127.0.0.1' || host === '';
+      document.getElementById('domainName').textContent = isTemp ? 'domenlar' : host;
+    })();
 
     document.querySelectorAll('.copy-btn').forEach(btn => {
       btn.addEventListener('click', async () => {
