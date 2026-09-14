@@ -200,6 +200,14 @@
   @media (max-width:560px){
     .contact{ grid-template-columns:1fr; }
   }
+  .contact.contact-2{
+    grid-template-columns:1fr 1fr;
+    max-width:420px;
+    margin-inline:auto;
+  }
+  @media (max-width:480px){
+    .contact.contact-2{ grid-template-columns:1fr; }
+  }
   .contact-card{
     position:relative;
     display:flex;
@@ -282,16 +290,6 @@
   .copy-btn svg{ width:13px;height:13px;fill:none;stroke:currentColor;stroke-width:1.9; }
   .copy-btn.copied{ color:var(--emerald); border-color:var(--emerald); }
 
-  .domain-desc{
-    text-align:center;
-    color:var(--ink-dim);
-    font-size:0.86rem;
-    font-style:italic;
-    max-width:34ch;
-    margin:0 auto 22px;
-    opacity:0;
-    animation:rise 0.8s 0.2s cubic-bezier(.2,.8,.2,1) forwards;
-  }
 
   .footer-note{
     text-align:center;
@@ -336,35 +334,24 @@
       <p class="tld" data-i18n="tld">.uz milliy domen zonasi</p>
     </div>
 
-    <p class="domain-desc" data-i18n="desc">Qisqa, oson eslab qolinadigan va SEO uchun qulay nom — startap, marketpleys yoki mobil ilova uchun mos keladi.</p>
-
     <p class="lede" data-i18n="lede">Bu nom hali <strong>hech kimga tegishli emas</strong> — birinchi bo'lib murojaat qiling va o'z biznesingiz uchun band qiling.</p>
 
-    <div class="contact">
+    <div class="contact contact-2">
       <div class="contact-card">
-        <a class="main-link" href="mailto:test@example.com" aria-label="Email yuborish"></a>
-        <span class="glyph"><svg viewBox="0 0 24 24"><path d="M4 5h16v14H4z"/><path d="M4 6l8 7 8-7"/></svg></span>
-        <span class="contact-label" data-i18n="labelEmail">Elektron pochta</span>
-        <span class="contact-value">test@example.com</span>
-        <button type="button" class="copy-btn" data-copy="test@example.com" aria-label="Nusxalash" title="Nusxalash">
-          <svg viewBox="0 0 24 24"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg>
-        </button>
-      </div>
-      <div class="contact-card">
-        <a class="main-link" href="tel:+998901234567" aria-label="Qo'ng'iroq qilish"></a>
+        <a class="main-link" href="tel:+998916440770" aria-label="Qo'ng'iroq qilish"></a>
         <span class="glyph"><svg viewBox="0 0 24 24"><path d="M6 3h3l2 5-2.5 1.5a11 11 0 0 0 5 5L15 12l5 2v3a2 2 0 0 1-2 2C10.5 19 4 12.5 4 5a2 2 0 0 1 2-2z"/></svg></span>
         <span class="contact-label" data-i18n="labelPhone">Telefon</span>
-        <span class="contact-value">+998 90 123 45 67</span>
-        <button type="button" class="copy-btn" data-copy="+998901234567" aria-label="Nusxalash" title="Nusxalash">
+        <span class="contact-value">+998 91 644 07 70</span>
+        <button type="button" class="copy-btn" data-copy="+998916440770" aria-label="Nusxalash" title="Nusxalash">
           <svg viewBox="0 0 24 24"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg>
         </button>
       </div>
       <div class="contact-card">
-        <a class="main-link" href="https://t.me/yourusername" target="_blank" rel="noopener" aria-label="Telegram orqali yozish"></a>
+        <a class="main-link" href="https://t.me/fazoniy" target="_blank" rel="noopener" aria-label="Telegram orqali yozish"></a>
         <span class="glyph"><svg viewBox="0 0 24 24"><path d="M22 3 2 11l6 2m14-10-4 17-8-6m12-11L8 13"/></svg></span>
         <span class="contact-label">Telegram</span>
-        <span class="contact-value">@yourusername</span>
-        <button type="button" class="copy-btn" data-copy="@yourusername" aria-label="Nusxalash" title="Nusxalash">
+        <span class="contact-value">@fazoniy</span>
+        <button type="button" class="copy-btn" data-copy="@fazoniy" aria-label="Nusxalash" title="Nusxalash">
           <svg viewBox="0 0 24 24"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg>
         </button>
       </div>
@@ -382,9 +369,7 @@
         domainFallback: "Domenlar",
         badge: "Sotuvda",
         tld: ".uz milliy domen zonasi",
-        desc: "Qisqa, oson eslab qolinadigan va SEO uchun qulay nom — startap, marketpleys yoki mobil ilova uchun mos keladi.",
         lede: "Bu nom hali <strong>hech kimga tegishli emas</strong> — birinchi bo'lib murojaat qiling va o'z biznesingiz uchun band qiling.",
-        labelEmail: "Elektron pochta",
         labelPhone: "Telefon",
         footer: "Rasmiy egalik topshirish · narx kelishuv asosida"
       },
@@ -392,9 +377,7 @@
         domainFallback: "Домены",
         badge: "Продаётся",
         tld: "Национальная доменная зона .uz",
-        desc: "Короткое, запоминающееся и SEO-дружественное имя — подходит для стартапа, маркетплейса или мобильного приложения.",
         lede: "Это имя пока <strong>никому не принадлежит</strong> — обратитесь первым и закрепите его за своим бизнесом.",
-        labelEmail: "Электронная почта",
         labelPhone: "Телефон",
         footer: "Официальная передача прав · цена по договорённости"
       },
@@ -402,9 +385,7 @@
         domainFallback: "Domains",
         badge: "For Sale",
         tld: ".uz national domain zone",
-        desc: "Short, memorable and SEO-friendly name — great for a startup, marketplace or mobile app.",
         lede: "This name is still <strong>unclaimed</strong> — reach out first and secure it for your business.",
-        labelEmail: "Email",
         labelPhone: "Phone",
         footer: "Official ownership transfer · price negotiable"
       }
