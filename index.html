@@ -87,6 +87,31 @@
     max-width:600px;
   }
 
+  .lang-row{
+    display:flex;
+    justify-content:flex-end;
+    margin-bottom:18px;
+  }
+  .lang-select{
+    appearance:none;
+    -webkit-appearance:none;
+    font-family:'Manrope', system-ui, sans-serif;
+    font-size:0.75rem;
+    font-weight:700;
+    letter-spacing:0.04em;
+    color:var(--ink);
+    background:var(--card);
+    border:1px solid var(--line);
+    border-radius:999px;
+    padding:7px 30px 7px 14px;
+    cursor:pointer;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23786c53' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+    background-repeat:no-repeat;
+    background-position:right 10px center;
+    background-size:12px;
+  }
+  .lang-select:focus-visible{ outline:2px solid var(--gold); outline-offset:2px; }
+
   .badge-row{
     display:flex;
     justify-content:center;
@@ -294,35 +319,43 @@
 </head>
 <body>
   <div class="stage">
+    <div class="lang-row">
+      <select class="lang-select" id="langSelect" aria-label="Til / Язык / Language">
+        <option value="uz">UZ — O'zbek</option>
+        <option value="ru">RU — Русский</option>
+        <option value="en">EN — English</option>
+      </select>
+    </div>
+
     <div class="badge-row">
-      <span class="badge"><span class="badge-dot"></span> Sotuvda</span>
+      <span class="badge"><span class="badge-dot"></span> <span data-i18n="badge">Sotuvda</span></span>
     </div>
 
     <div class="domain-wrap">
       <h1 class="domain" id="domainName">yourdomain.uz</h1>
-      <p class="tld">.uz milliy domen zonasi</p>
+      <p class="tld" data-i18n="tld">.uz milliy domen zonasi</p>
     </div>
 
-    <p class="domain-desc">Qisqa, oson eslab qolinadigan va SEO uchun qulay nom — startap, marketpleys yoki mobil ilova uchun mos keladi.</p>
+    <p class="domain-desc" data-i18n="desc">Qisqa, oson eslab qolinadigan va SEO uchun qulay nom — startap, marketpleys yoki mobil ilova uchun mos keladi.</p>
 
-    <p class="lede">Bu nom hali <strong>hech kimga tegishli emas</strong> — birinchi bo'lib murojaat qiling va o'z biznesingiz uchun band qiling.</p>
+    <p class="lede" data-i18n="lede">Bu nom hali <strong>hech kimga tegishli emas</strong> — birinchi bo'lib murojaat qiling va o'z biznesingiz uchun band qiling.</p>
 
     <div class="contact">
       <div class="contact-card">
         <a class="main-link" href="mailto:test@example.com" aria-label="Email yuborish"></a>
         <span class="glyph"><svg viewBox="0 0 24 24"><path d="M4 5h16v14H4z"/><path d="M4 6l8 7 8-7"/></svg></span>
-        <span class="contact-label">Elektron pochta</span>
+        <span class="contact-label" data-i18n="labelEmail">Elektron pochta</span>
         <span class="contact-value">test@example.com</span>
-        <button type="button" class="copy-btn" data-copy="test@example.com" aria-label="Emailni nusxalash" title="Nusxalash">
+        <button type="button" class="copy-btn" data-copy="test@example.com" aria-label="Nusxalash" title="Nusxalash">
           <svg viewBox="0 0 24 24"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg>
         </button>
       </div>
       <div class="contact-card">
         <a class="main-link" href="tel:+998901234567" aria-label="Qo'ng'iroq qilish"></a>
         <span class="glyph"><svg viewBox="0 0 24 24"><path d="M6 3h3l2 5-2.5 1.5a11 11 0 0 0 5 5L15 12l5 2v3a2 2 0 0 1-2 2C10.5 19 4 12.5 4 5a2 2 0 0 1 2-2z"/></svg></span>
-        <span class="contact-label">Telefon</span>
+        <span class="contact-label" data-i18n="labelPhone">Telefon</span>
         <span class="contact-value">+998 90 123 45 67</span>
-        <button type="button" class="copy-btn" data-copy="+998901234567" aria-label="Telefonni nusxalash" title="Nusxalash">
+        <button type="button" class="copy-btn" data-copy="+998901234567" aria-label="Nusxalash" title="Nusxalash">
           <svg viewBox="0 0 24 24"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg>
         </button>
       </div>
@@ -331,13 +364,13 @@
         <span class="glyph"><svg viewBox="0 0 24 24"><path d="M22 3 2 11l6 2m14-10-4 17-8-6m12-11L8 13"/></svg></span>
         <span class="contact-label">Telegram</span>
         <span class="contact-value">@yourusername</span>
-        <button type="button" class="copy-btn" data-copy="@yourusername" aria-label="Telegramni nusxalash" title="Nusxalash">
+        <button type="button" class="copy-btn" data-copy="@yourusername" aria-label="Nusxalash" title="Nusxalash">
           <svg viewBox="0 0 24 24"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg>
         </button>
       </div>
     </div>
 
-    <p class="footer-note">Rasmiy egalik topshirish · narx kelishuv asosida</p>
+    <p class="footer-note" data-i18n="footer">Rasmiy egalik topshirish · narx kelishuv asosida</p>
   </div>
 
   <script>
@@ -346,6 +379,65 @@
       const isTemp = host.endsWith('.vercel.app') || host === 'localhost' || host === '127.0.0.1' || host === '';
       document.getElementById('domainName').textContent = isTemp ? 'Domenlar' : host;
     })();
+
+    const translations = {
+      uz: {
+        badge: "Sotuvda",
+        tld: ".uz milliy domen zonasi",
+        desc: "Qisqa, oson eslab qolinadigan va SEO uchun qulay nom — startap, marketpleys yoki mobil ilova uchun mos keladi.",
+        lede: "Bu nom hali <strong>hech kimga tegishli emas</strong> — birinchi bo'lib murojaat qiling va o'z biznesingiz uchun band qiling.",
+        labelEmail: "Elektron pochta",
+        labelPhone: "Telefon",
+        footer: "Rasmiy egalik topshirish · narx kelishuv asosida"
+      },
+      ru: {
+        badge: "Продаётся",
+        tld: "Национальная доменная зона .uz",
+        desc: "Короткое, запоминающееся и SEO-дружественное имя — подходит для стартапа, маркетплейса или мобильного приложения.",
+        lede: "Это имя пока <strong>никому не принадлежит</strong> — обратитесь первым и закрепите его за своим бизнесом.",
+        labelEmail: "Электронная почта",
+        labelPhone: "Телефон",
+        footer: "Официальная передача прав · цена по договорённости"
+      },
+      en: {
+        badge: "For Sale",
+        tld: ".uz national domain zone",
+        desc: "Short, memorable and SEO-friendly name — great for a startup, marketplace or mobile app.",
+        lede: "This name is still <strong>unclaimed</strong> — reach out first and secure it for your business.",
+        labelEmail: "Email",
+        labelPhone: "Phone",
+        footer: "Official ownership transfer · price negotiable"
+      }
+    };
+
+    function applyLang(lang){
+      const t = translations[lang] || translations.uz;
+      document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.getAttribute('data-i18n');
+        if (t[key] !== undefined) el.innerHTML = t[key];
+      });
+      document.documentElement.lang = lang;
+      try { localStorage.setItem('siteLang', lang); } catch(e){}
+    }
+
+    (function initLang(){
+      let lang = 'uz';
+      try {
+        const saved = localStorage.getItem('siteLang');
+        if (saved && translations[saved]) {
+          lang = saved;
+        } else {
+          const browserLang = (navigator.language || 'uz').slice(0, 2).toLowerCase();
+          if (translations[browserLang]) lang = browserLang;
+        }
+      } catch(e){}
+      document.getElementById('langSelect').value = lang;
+      applyLang(lang);
+    })();
+
+    document.getElementById('langSelect').addEventListener('change', (e) => {
+      applyLang(e.target.value);
+    });
 
     document.querySelectorAll('.copy-btn').forEach(btn => {
       btn.addEventListener('click', async () => {
