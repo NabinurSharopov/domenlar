@@ -374,14 +374,12 @@
   </div>
 
   <script>
-    (function(){
-      const host = window.location.hostname || '';
-      const isTemp = host.endsWith('.vercel.app') || host === 'localhost' || host === '127.0.0.1' || host === '';
-      document.getElementById('domainName').textContent = isTemp ? 'Domenlar' : host;
-    })();
+    const host = window.location.hostname || '';
+    const isTempHost = host.endsWith('.vercel.app') || host === 'localhost' || host === '127.0.0.1' || host === '';
 
     const translations = {
       uz: {
+        domainFallback: "Domenlar",
         badge: "Sotuvda",
         tld: ".uz milliy domen zonasi",
         desc: "Qisqa, oson eslab qolinadigan va SEO uchun qulay nom — startap, marketpleys yoki mobil ilova uchun mos keladi.",
@@ -391,6 +389,7 @@
         footer: "Rasmiy egalik topshirish · narx kelishuv asosida"
       },
       ru: {
+        domainFallback: "Домены",
         badge: "Продаётся",
         tld: "Национальная доменная зона .uz",
         desc: "Короткое, запоминающееся и SEO-дружественное имя — подходит для стартапа, маркетплейса или мобильного приложения.",
@@ -400,6 +399,7 @@
         footer: "Официальная передача прав · цена по договорённости"
       },
       en: {
+        domainFallback: "Domains",
         badge: "For Sale",
         tld: ".uz national domain zone",
         desc: "Short, memorable and SEO-friendly name — great for a startup, marketplace or mobile app.",
@@ -416,11 +416,17 @@
         const key = el.getAttribute('data-i18n');
         if (t[key] !== undefined) el.innerHTML = t[key];
       });
+      if (isTempHost) {
+        document.getElementById('domainName').textContent = t.domainFallback;
+      }
       document.documentElement.lang = lang;
       try { localStorage.setItem('siteLang', lang); } catch(e){}
     }
 
     (function initLang(){
+      if (!isTempHost) {
+        document.getElementById('domainName').textContent = host;
+      }
       let lang = 'uz';
       try {
         const saved = localStorage.getItem('siteLang');
